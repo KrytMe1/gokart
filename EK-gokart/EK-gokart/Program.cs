@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace EK_gokart
                 List<string> keresztnevek = File.ReadAllLines("keresztnevek.txt").ToList();
                 List<string> vezeteknevek = File.ReadAllLines("vezeteknevek.txt").ToList();
 
-               
+                
                 Random rnd = new Random();
                 int keresztnevIndex = rnd.Next(0, keresztnevek.Count);
                 int vezeteknevIndex = rnd.Next(0, vezeteknevek.Count);
@@ -105,7 +105,7 @@ namespace EK_gokart
             Console.Write("Kérem adja meg a versenyzők számát(8-20): ");
             int versenyzokSzama = int.Parse(Console.ReadLine());
 
-           
+            
 
             for (int i = 0; i < versenyzokSzama; i++)
             {
@@ -125,7 +125,7 @@ namespace EK_gokart
                     Console.WriteLine("A versenyző nem múlt el 18 éves!");
                 }
 
-               
+                
             }
             for (int j = 0; j < versenyzokSzama; j++)
             {
@@ -135,4 +135,3 @@ namespace EK_gokart
         }
     }
 }
-
