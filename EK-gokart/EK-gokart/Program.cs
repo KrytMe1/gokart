@@ -156,19 +156,21 @@ namespace EK_gokart
                 string idopontok = $"{mettolmeddig}:00 - {mettolmeddig + bereltIdo}:00";
                 idopont.Add(idopontok);
             }
-
-            for (int i = 0; i < versenyzok.Count; i++)
+            Console.WriteLine("\nBérlések időpontjai: 8-9 | 9-10 | 10-11 | 11-12 | 12-13 | 13-14 | 14-15 | 15-16 | 17-18 | 18-19 |");
+            /*for (int i = 1; i < 10; i++)
             {
-                for (int j = 0; j < 9; j++)
+
+                for (int j = 0; j < versenyzok.Count; j++)
                 {
-                    if (i == j)
+
+                    if (napok[i] == i)
                     {
-                        Console.WriteLine($"{berles[j]} {napok} {idopont}");
+                        
                     }
                 }
 
 
-            }
+            }*/
 
 
 
