@@ -12,13 +12,13 @@ namespace EK_gokart
     {
         public class versenyzo
         {
-            private string nev;
-            private DateTime szuletesiEv;
-            private bool elmult18;
-            private string azonosito;
-            private string email;
+            public string nev;
+            public DateTime szuletesiEv;
+            public bool elmult18;
+            public string azonosito;
+            public string email;
 
-
+            private static Random rnd = new Random();
             public versenyzo(string nev, DateTime szuletesiEv, bool elmult18, string azonosito, string email)
             {
                 this.nev = nev;
@@ -29,19 +29,18 @@ namespace EK_gokart
             }
 
             public DateTime SzuletesiEv { get => szuletesiEv; set => szuletesiEv = value; }
+
+            
             public string nevgeneralas()
             {
-                List<string> keresztnevek = File.ReadAllLines("keresztnevek.txt").ToList();
-                List<string> vezeteknevek = File.ReadAllLines("vezeteknevek.txt").ToList();
-
-                
-                Random rnd = new Random();
-                int keresztnevIndex = rnd.Next(0, keresztnevek.Count);
-                int vezeteknevIndex = rnd.Next(0, vezeteknevek.Count);
-                string keresztnev = keresztnevek[keresztnevIndex];
-                string vezeteknev = vezeteknevek[vezeteknevIndex];
+                string kereszt = File.ReadAllText("keresztnevek.txt");
+                string vezetek = File.ReadAllText("vezeteknevek.txt");
+                string[] keresztnevek = kereszt.Split(new[] { ',' });
+                string[] vezeteknevek = vezetek.Split(new[] { ',' });
+                string keresztnev = keresztnevek[rnd.Next(0, keresztnevek.Length)];
+                string vezeteknev = vezeteknevek[rnd.Next(0, vezeteknevek.Length)];
                 string nev = vezeteknev.Replace("'","") + " " + keresztnev.Replace("'", "");
-                nev.Replace(",", "");
+                nev = nev.Remove(0, 1);
                 return nev;
             }
             public string azonositogeneralas()
@@ -105,33 +104,32 @@ namespace EK_gokart
             Console.Write("Kérem adja meg a versenyzők számát(8-20): ");
             int versenyzokSzama = int.Parse(Console.ReadLine());
 
-            
+
 
             for (int i = 0; i < versenyzokSzama; i++)
             {
                 Console.Write($"Kérem adja meg a(z) {i + 1}. versenyző születési évét(ÉÉÉÉ.HH.NN): ");
                 DateTime szuletesiEv = DateTime.Parse(Console.ReadLine());
                 versenyzo ujVersenyzo = new versenyzo("", szuletesiEv, false, "", "");
-                ujVersenyzo.nevgeneralas();
-                ujVersenyzo.azonositogeneralas();
-                ujVersenyzo.emailgeneralas();
-                ujVersenyzo.eletkor();
-                if (ujVersenyzo.eletkor() == true)
+                ujVersenyzo.nev = ujVersenyzo.nevgeneralas(); // Assign the generated name
+                ujVersenyzo.azonosito = ujVersenyzo.azonositogeneralas();
+                ujVersenyzo.email = ujVersenyzo.emailgeneralas();
+                ujVersenyzo.elmult18 = ujVersenyzo.eletkor();
+                if (ujVersenyzo.elmult18)
                 {
-                    Console.WriteLine("A versenyző elmúlt el 18 éves!");
+                    versenyzok.Add(ujVersenyzo);
                 }
                 else
                 {
-                    Console.WriteLine("A versenyző nem múlt el 18 éves!");
+                    Console.WriteLine("A versenyző nem múlt el 18 éves, így nem regisztrálható!");
+                    i--;
                 }
-
-                
             }
-            for (int j = 0; j < versenyzokSzama; j++)
+
+            foreach (var item in versenyzok)
             {
-                Console.WriteLine($"Név: {versenyzok[j].nevgeneralas()}, Születési év: {versenyzok[j]}, Azonosító: {versenyzok[j]}, Email: {versenyzok[j]}");
+                Console.WriteLine($"{item.nev} {item.SzuletesiEv.ToString("d")} {item.azonosito} {item.email}");
             }
-
         }
     }
 }
