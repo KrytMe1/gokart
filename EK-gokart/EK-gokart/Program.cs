@@ -141,17 +141,33 @@ namespace EK_gokart
 
             List<string> berles = new List<string>();
             Random rnd = new Random();
-            
+            List<int> napok = new List<int>();
+            List<string> idopont = new List<string>();
+
             for (int i = 0; i < versenyzok.Count; i++)
             {
                 int bereltIdo = rnd.Next(1, 3);
-                string berelt = $"{versenyzok[i].nev} {bereltIdo} óra";
-                berles.Add(berelt);
+                string bereltek = $"{versenyzok[i].nev} {bereltIdo} óra";
+                berles.Add(bereltek);
                 Console.WriteLine(berles[i]);
                 int melyiknapra = rnd.Next(1, 10);
-                string napok = $"{melyiknapra}";
+                napok.Add(melyiknapra);
                 int mettolmeddig = rnd.Next(8, 20);
-                string idopont = $"{mettolmeddig}:00 - {mettolmeddig + bereltIdo}:00";
+                string idopontok = $"{mettolmeddig}:00 - {mettolmeddig + bereltIdo}:00";
+                idopont.Add(idopontok);
+            }
+
+            for (int i = 0; i < versenyzok.Count; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (i == j)
+                    {
+                        Console.WriteLine($"{berles[j]} {napok} {idopont}");
+                    }
+                }
+
+
             }
 
 
