@@ -39,6 +39,7 @@ namespace EK_gokart
                 string[] vezeteknevek = vezetek.Split(new[] { ',' });
                 string keresztnev = keresztnevek[rnd.Next(0, keresztnevek.Length)];
                 string vezeteknev = vezeteknevek[rnd.Next(0, vezeteknevek.Length)];
+                keresztnev = keresztnev.Remove(0, 1);
                 string nev = vezeteknev.Replace("'","") + " " + keresztnev.Replace("'", "");
                 nev = nev.Remove(0, 1);
                 return nev;
@@ -52,6 +53,8 @@ namespace EK_gokart
                 string asciiStr = System.Text.Encoding.UTF8.GetString(tempBytes);
                 asciiStr = asciiStr.Replace(" ", "");
                 string szuletesv = szuletesiEv.ToString("d");
+                szuletesv = szuletesv.Replace(".", "");
+                szuletesv = szuletesv.Replace(" ", "");
                 string azonosito = "GO-" + asciiStr + "-" + szuletesv;
                 return azonosito;
             }
@@ -104,6 +107,11 @@ namespace EK_gokart
             Console.Write("Kérem adja meg a versenyzők számát(8-20): ");
             int versenyzokSzama = int.Parse(Console.ReadLine());
 
+            while (versenyzokSzama < 8 || versenyzokSzama > 20)
+            {
+                Console.Write("Hibás adat! Kérem adja meg a versenyzők számát(8-20): ");
+                versenyzokSzama = int.Parse(Console.ReadLine());
+            }
 
 
             for (int i = 0; i < versenyzokSzama; i++)
@@ -111,7 +119,7 @@ namespace EK_gokart
                 Console.Write($"Kérem adja meg a(z) {i + 1}. versenyző születési évét(ÉÉÉÉ.HH.NN): ");
                 DateTime szuletesiEv = DateTime.Parse(Console.ReadLine());
                 versenyzo ujVersenyzo = new versenyzo("", szuletesiEv, false, "", "");
-                ujVersenyzo.nev = ujVersenyzo.nevgeneralas(); // Assign the generated name
+                ujVersenyzo.nev = ujVersenyzo.nevgeneralas(); 
                 ujVersenyzo.azonosito = ujVersenyzo.azonositogeneralas();
                 ujVersenyzo.email = ujVersenyzo.emailgeneralas();
                 ujVersenyzo.elmult18 = ujVersenyzo.eletkor();
@@ -130,6 +138,19 @@ namespace EK_gokart
             {
                 Console.WriteLine($"{item.nev} {item.SzuletesiEv.ToString("d")} {item.azonosito} {item.email}");
             }
+
+            List<string> berles = new List<string>();
+            Random rnd = new Random();
+            
+            for (int i = 0; i < versenyzok.Count; i++)
+            {
+                int bereltIdo = rnd.Next(1, 3);
+                string berelt = $"{versenyzok[i].nev} {bereltIdo} óra";
+                berles.Add(berelt);
+                Console.WriteLine(berles[i]);
+            }
+
+
         }
     }
 }
