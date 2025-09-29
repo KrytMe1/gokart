@@ -148,7 +148,12 @@ namespace EK_gokart
                 string berelt = $"{versenyzok[i].nev} {bereltIdo} óra";
                 berles.Add(berelt);
                 Console.WriteLine(berles[i]);
+                int melyiknapra = rnd.Next(1, 10);
+                string napok = $"{melyiknapra}";
+                int mettolmeddig = rnd.Next(8, 20);
+                string idopont = $"{mettolmeddig}:00 - {mettolmeddig + bereltIdo}:00";
             }
+
 
 
         }
